@@ -3,8 +3,10 @@
     <output-path>$PROJECT_DIR$/build</output-path>
     <root id="archive" name="zpe.lib.msaccess.jar">
       <element id="module-output" name="zpe.lib.msaccess" />
-      <element id="library" level="project" name="jackcess-4.0.10" />
       <element id="library" level="project" name="zpe" />
+      <element id="extracted-dir" path="$USER_HOME$/Sync/Programs/JARs/commons-lang3-3.15.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Sync/Programs/JARs/commons-logging-1.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Sync/Programs/JARs/jackcess-4.0.10.jar" path-in-jar="/" />
     </root>
   </artifact>
 </component>
