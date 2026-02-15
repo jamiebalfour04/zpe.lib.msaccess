@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="zpe.lib.msaccess">
+    <output-path>$PROJECT_DIR$/build</output-path>
+    <root id="archive" name="zpe.lib.msaccess.jar">
+      <element id="module-output" name="zpe.lib.msaccess" />
+      <element id="library" level="project" name="jackcess-4.0.10" />
+      <element id="library" level="project" name="zpe" />
+    </root>
+  </artifact>
+</component>
