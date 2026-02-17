@@ -20,12 +20,13 @@ import java.io.IOException;
 
 public class ZPEMSAccess extends ZPEStructure {
 
-  Database db;
-  ZPERuntimeEnvironment runtime;
+  private final Database db;
+  private final ZPERuntimeEnvironment runtime;
 
   protected ZPEMSAccess(ZPERuntimeEnvironment z, ZPEPropertyWrapper parent, Database db) {
     super(z, parent, "ZPEMSAccess");
     this.db = db;
+    this.runtime = z; // <-- IMPORTANT: you were never setting this before
 
     addNativeMethod("get_tables", new get_tables_Command());
     addNativeMethod("get_table", new get_table_Command());
@@ -44,17 +45,18 @@ public class ZPEMSAccess extends ZPEStructure {
     }
 
     @Override
-    public ZPEType MainMethod(JBBinarySearchTree<String, ZPEType> parameters, ZPEObject parent) throws ZPERuntimeException, ExitHalt, IncorrectDataTypeException {
+    public ZPEType MainMethod(JBBinarySearchTree<String, ZPEType> parameters, ZPEObject parent)
+            throws ZPERuntimeException, ExitHalt, IncorrectDataTypeException {
 
       ZPEList output = new ZPEList();
+
       try {
         for (String tableName : db.getTableNames()) {
           output.add(new ZPEString(tableName));
         }
       } catch (IOException e) {
-        //Ignore
+        // Match your existing behaviour: ignore and return what we have (empty list)
       }
-
 
       return output;
     }
@@ -83,16 +85,17 @@ public class ZPEMSAccess extends ZPEStructure {
     }
 
     @Override
-    public ZPEType MainMethod(JBBinarySearchTree<String, ZPEType> parameters, ZPEObject zpeObject) throws ZPERuntimeException, ExitHalt, IncorrectDataTypeException {
+    public ZPEType MainMethod(JBBinarySearchTree<String, ZPEType> parameters, ZPEObject zpeObject)
+            throws ZPERuntimeException, ExitHalt, IncorrectDataTypeException {
+
       String tableName = parameters.get("table_name").toString();
+
       try {
         Table table = db.getTable(tableName);
         return new ZPEMSAccessTable(runtime, zpeObject, table);
       } catch (IOException e) {
         return ZPEBoolean.FALSE();
       }
-
-
     }
 
     @Override
@@ -108,7 +111,7 @@ public class ZPEMSAccess extends ZPEStructure {
 
   public class ZPEMSAccessTable extends ZPEStructure {
 
-    Table table;
+    private final Table table;
 
     protected ZPEMSAccessTable(ZPERuntimeEnvironment z, ZPEPropertyWrapper parent, Table table) {
       super(z, parent, "MSAccessTable");
@@ -131,16 +134,16 @@ public class ZPEMSAccess extends ZPEStructure {
       }
 
       @Override
-      public ZPEType MainMethod(JBBinarySearchTree<String, ZPEType> jbBinarySearchTree, ZPEObject zpeObject) throws ZPERuntimeException, ExitHalt, IncorrectDataTypeException {
+      public ZPEType MainMethod(JBBinarySearchTree<String, ZPEType> jbBinarySearchTree, ZPEObject zpeObject)
+              throws ZPERuntimeException, ExitHalt, IncorrectDataTypeException {
 
         ZPEList output = new ZPEList();
 
-        for(Column c : table.getColumns()){
+        for (Column c : table.getColumns()) {
           output.add(new ZPEString(c.getName()));
         }
 
         return output;
-
       }
 
       @Override
@@ -155,6 +158,7 @@ public class ZPEMSAccess extends ZPEStructure {
     }
 
     public class get_rows_Command implements ZPEObjectNativeMethod {
+
       @Override
       public String[] getParameterNames() {
         return new String[0];
@@ -166,16 +170,16 @@ public class ZPEMSAccess extends ZPEStructure {
       }
 
       @Override
-      public ZPEType MainMethod(JBBinarySearchTree<String, ZPEType> jbBinarySearchTree, ZPEObject zpeObject) throws ZPERuntimeException, ExitHalt, IncorrectDataTypeException {
+      public ZPEType MainMethod(JBBinarySearchTree<String, ZPEType> jbBinarySearchTree, ZPEObject zpeObject)
+              throws ZPERuntimeException, ExitHalt, IncorrectDataTypeException {
 
         ZPEList output = new ZPEList();
 
-        for(Row r : table){
+        for (Row r : table) {
           output.add(new ZPEMSAccessRow(runtime, zpeObject, r));
         }
 
         return output;
-
       }
 
       @Override
@@ -192,21 +196,28 @@ public class ZPEMSAccess extends ZPEStructure {
 
   public class ZPEMSAccessRow extends ZPEStructure {
 
-    Row row;
+    private final Row row;
 
     protected ZPEMSAccessRow(ZPERuntimeEnvironment z, ZPEPropertyWrapper parent, Row row) {
       super(z, parent, "MSAccessRow");
       this.row = row;
 
       addNativeMethod("get_column", new get_column_Command());
-
     }
 
-    public ZPEType get(String columnName){
-      return new ZPEString(row.get(columnName).toString());
+    public ZPEType get(String columnName) {
+      Object v = row.get(columnName);
+
+      // Null-safe: Access fields can genuinely be null
+      if (v == null) {
+        return new ZPEString("");
+      }
+
+      return new ZPEString(v.toString());
     }
 
     public class get_column_Command implements ZPEObjectNativeMethod {
+
       @Override
       public String[] getParameterNames() {
         return new String[]{"column_name"};
@@ -218,7 +229,8 @@ public class ZPEMSAccess extends ZPEStructure {
       }
 
       @Override
-      public ZPEType MainMethod(JBBinarySearchTree<String, ZPEType> parameters, ZPEObject zpeObject) throws ZPERuntimeException, ExitHalt, IncorrectDataTypeException {
+      public ZPEType MainMethod(JBBinarySearchTree<String, ZPEType> parameters, ZPEObject zpeObject)
+              throws ZPERuntimeException, ExitHalt, IncorrectDataTypeException {
         return get(parameters.get("column_name").toString());
       }
 

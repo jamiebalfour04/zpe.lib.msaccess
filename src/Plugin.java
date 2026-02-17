@@ -57,7 +57,7 @@ public class Plugin implements ZPELibrary {
   public static void main(String[] args) {
     Database db = null;
     try {
-      db = DatabaseBuilder.open(new File("/Users/jamiebalfour/Downloads/Customer.accdb"));
+      db = DatabaseBuilder.open(new File("Customer.accdb"));
       for (String tableName : db.getTableNames()) {
         Table table = db.getTable(tableName);
 
@@ -80,7 +80,7 @@ public class Plugin implements ZPELibrary {
 
     @Override
     public String getManualHeader() {
-      return "Opens an Microsoft Access database file and returns an MSAccess object";
+      return "Opens an Microsoft Access database file and returns an MSAccess object.";
     }
 
     @Override
@@ -96,7 +96,7 @@ public class Plugin implements ZPELibrary {
     @Override
     public ZPEType MainMethod(HashMap<String, Object> parameters, ZPERuntimeEnvironment runtime, ZPEFunction currentFunction) {
 
-      String path = (String) parameters.get("path").toString();
+      String path = parameters.get("path").toString();
 
       if(new File(path).exists()){
        try{
