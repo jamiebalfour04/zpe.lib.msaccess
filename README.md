@@ -37,6 +37,8 @@
 
 <pre>
 
+import "zpe.lib.msaccess"
+
 db = open_access_file("database.accdb")
 
 tables = db.get_tables()
