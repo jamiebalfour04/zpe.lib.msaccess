@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/zpe.lib.msaccess.iml" filepath="$PROJECT_DIR$/zpe.lib.msaccess.iml" />
+      <module fileurl="file://$PROJECT_DIR$/zpe.lib.accdb.iml" filepath="$PROJECT_DIR$/zpe.lib.accdb.iml" />
     </modules>
   </component>
 </project>

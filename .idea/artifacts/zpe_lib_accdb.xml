@@ -1,5 +1,5 @@
 <component name="ArtifactManager">
-  <artifact type="jar" build-on-make="true" name="zpe.lib.msaccess">
+  <artifact type="jar" build-on-make="true" name="zpe.lib.accdb">
     <output-path>$PROJECT_DIR$/build</output-path>
     <properties id="ant-postprocessing">
       <options enabled="true">
@@ -7,8 +7,8 @@
         <target>build</target>
       </options>
     </properties>
-    <root id="archive" name="zpe.lib.msaccess.jar">
-      <element id="module-output" name="zpe.lib.msaccess" />
+    <root id="archive" name="zpe.lib.accdb.jar">
+      <element id="module-output" name="zpe.lib.accdb" />
       <element id="library" level="project" name="zpe" />
       <element id="extracted-dir" path="$USER_HOME$/Sync/Programs/JARs/commons-lang3-3.15.0.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$USER_HOME$/Sync/Programs/JARs/commons-logging-1.2.jar" path-in-jar="/" />

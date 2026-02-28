@@ -18,12 +18,12 @@ import jamiebalfour.zpe.types.ZPEString;
 
 import java.io.IOException;
 
-public class ZPEMSAccess extends ZPEStructure {
+public class ZPEACCDB extends ZPEStructure {
 
   private final Database db;
   private final ZPERuntimeEnvironment runtime;
 
-  protected ZPEMSAccess(ZPERuntimeEnvironment z, ZPEPropertyWrapper parent, Database db) {
+  protected ZPEACCDB(ZPERuntimeEnvironment z, ZPEPropertyWrapper parent, Database db) {
     super(z, parent, "ZPEMSAccess");
     this.db = db;
     this.runtime = z; // <-- IMPORTANT: you were never setting this before

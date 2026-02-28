@@ -102,7 +102,7 @@ public class Plugin implements ZPELibrary {
        try{
          Database db = DatabaseBuilder.open(new File("/Users/jamiebalfour/Downloads/Customer.accdb"));
 
-         return new ZPEMSAccess(runtime, currentFunction, db);
+         return new ZPEACCDB(runtime, currentFunction, db);
 
        } catch (IOException e) {
          return ZPEBoolean.FALSE();
