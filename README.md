@@ -1,24 +1,24 @@
-<h1>zpe.lib.msaccess</h1>
+<h1>zpe.lib.accdb</h1>
 
 <p>
-  This is the official Microsoft Access plugin for ZPE.
+  This is the official Microsoft Access .accdb plugin for ZPE.
 </p>
 
 <p>
-  The plugin provides support for reading .accdb files directly from ZPE.
+  The plugin supports reading .accdb files directly from ZPE.
 </p>
 
 <h2>Installation</h2>
 
 <p>
-  Place <strong>zpe.lib.msaccess.jar</strong> in your ZPE native-plugins folder and restart ZPE.
+  Place <strong>zpe.lib.accdb.jar</strong> in your ZPE native-plugins folder and restart ZPE.
 </p>
 
 <p>
   You can also download with the ZULE Package Manager by using:
 </p>
 <p>
-  <code>zpe --zule install zpe.lib.msaccess.jar</code>
+  <code>zpe --zule install zpe.lib.accdb.jar</code>
 </p>
 
 <h2>Documentation</h2>
@@ -28,7 +28,7 @@
 </p>
 
 <p>
-  <a href="https://www.jamiebalfour.scot/projects/zpe/documentation/plugins/zpe.lib.msaccess/" target="_blank">
+  <a href="https://www.jamiebalfour.scot/projects/zpe/documentation/plugins/zpe.lib.accdb/" target="_blank">
     View the complete documentation
   </a>
 </p>
@@ -37,7 +37,7 @@
 
 <pre>
 
-import "zpe.lib.msaccess"
+import "zpe.lib.accdb"
 
 db = open_access_file("database.accdb")
 
