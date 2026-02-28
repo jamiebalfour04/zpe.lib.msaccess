@@ -41,14 +41,14 @@ import "zpe.lib.accdb"
 
 db = open_access_file("database.accdb")
 
-tables = db.get_tables()
+tables = db->get_tables()
 print(tables)
 
-users = db.get_table("Users")
-rows = users.get_rows()
+users = db->get_table("Users")
+rows = users->get_rows()
 
 for (r in rows)
-    print(r.get_column("Name"))
+    print(r->get_column("Name"))
 end for
 </pre>
 
