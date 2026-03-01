@@ -3,6 +3,7 @@ import com.healthmarketscience.jackcess.Database;
 import com.healthmarketscience.jackcess.Row;
 import com.healthmarketscience.jackcess.Table;
 import jamiebalfour.generic.JBBinarySearchTree;
+import jamiebalfour.zpe.core.YASSByteCodes;
 import jamiebalfour.zpe.core.ZPEObject;
 import jamiebalfour.zpe.core.ZPERuntimeEnvironment;
 import jamiebalfour.zpe.core.ZPEStructure;
@@ -70,6 +71,11 @@ public class ZPEACCDB extends ZPEStructure {
     public String getName() {
       return "get_tables";
     }
+
+    @Override
+    public byte[] returnTypes() {
+      return new byte[]{YASSByteCodes.LIST};
+    }
   }
 
   public class get_table_Command implements ZPEObjectNativeMethod {
@@ -107,6 +113,13 @@ public class ZPEACCDB extends ZPEStructure {
     public String getName() {
       return "get_table";
     }
+
+    @Override
+    public byte[] returnTypes() {
+      return new byte[]{YASSByteCodes.OBJECT, YASSByteCodes.BOOLEAN_TYPE};
+    }
+
+
   }
 
   public class ZPEMSAccessTable extends ZPEStructure {
@@ -135,7 +148,7 @@ public class ZPEACCDB extends ZPEStructure {
 
       @Override
       public ZPEType MainMethod(JBBinarySearchTree<String, ZPEType> jbBinarySearchTree, ZPEObject zpeObject)
-              throws ZPERuntimeException, ExitHalt, IncorrectDataTypeException {
+              throws ZPERuntimeException {
 
         ZPEList output = new ZPEList();
 
@@ -155,6 +168,13 @@ public class ZPEACCDB extends ZPEStructure {
       public String getName() {
         return "get_field_names";
       }
+
+      @Override
+      public byte[] returnTypes() {
+        return new byte[]{YASSByteCodes.LIST};
+      }
+
+
     }
 
     public class get_rows_Command implements ZPEObjectNativeMethod {
@@ -190,6 +210,11 @@ public class ZPEACCDB extends ZPEStructure {
       @Override
       public String getName() {
         return "get_rows";
+      }
+
+      @Override
+      public byte[] returnTypes() {
+        return new byte[]{YASSByteCodes.LIST};
       }
     }
   }
@@ -242,6 +267,11 @@ public class ZPEACCDB extends ZPEStructure {
       @Override
       public String getName() {
         return "get_column";
+      }
+
+      @Override
+      public byte[] returnTypes() {
+        return new byte[]{YASSByteCodes.STRING_TYPE};
       }
     }
   }
